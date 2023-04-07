@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!-- saved from url=(0044)http://markhc.com/favouriteColourSurvey.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+        
+        <link rel="stylesheet" href="mhcStyles.css">
+        <script type="text/javascript" async="" src="analytics.js"></script><script async="" src="gtm.js"></script>  
+        <title>Favourite Colours</title>
+    <style>@media print {#ghostery-purple-box {display:none !important}}</style><script type="text/javascript" src="chrome-extension://pogogcdfpladllndlicdmedkapcekmjm/src/scripts/grabber.js"></script></head>
+    <body>        
+        <script>
+            dataLayer=[{"pageCategory": "ProductPage"},
+            {"favouriteColour":"yellow"}];
+        </script>
+        
+        <script>
+            function favouriteColour(colour) {
+                document.getElementById("thanks").innerHTML = "Thank you for your contribution";
+                dataLayer.push({"favouriteColour":colour}, 
+                                {"event": "favouriteColourSelected"}, 
+                                {"event":"participationRecorded"});
+            }
+        </script>
+        
+        <!-- Google Tag Manager -->
+        <noscript>&lt;iframe src="//www.googletagmanager.com/ns.html?id=GTM-KJMGWT"
+            height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+        <script src="tagManager.js"></script>
+        <!-- End Google Tag Manager -->
+    
+        <h1>Colours</h1>
+        <p>This page will help you tell us about your favourite colour.</p>
+        <p>Please select the button indicating your preferred colour from the available selections.</p>
+        <button type="button" class="red" onclick="favouriteColour(&#39;red&#39;)">Red</button>
+        <button type="button" class="orange" onclick="favouriteColour(&#39;orange&#39;)">Orange</button>
+        <button type="button" class="yellow" onclick="favouriteColour(&#39;yellow&#39;)">Yellow</button>
+        <button type="button" class="green" onclick="favouriteColour(&#39;green&#39;)">Green</button>
+        <button type="button" class="blue" onclick="favouriteColour(&#39;blue&#39;)">Blue</button>
+        <button type="button" class="indigo" onclick="favouriteColour(&#39;indigo&#39;)">Indigo</button>
+        <button type="button" class="violet" onclick="favouriteColour(&#39;violet&#39;)">Violet</button>
+                
+        <p id="thanks"></p>
+
+    
+
+</body></html>

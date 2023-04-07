@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'thing');
+      data.addColumn('number', 'Responses');
+
+      data.addRows([
+        ['Sydney', 6],
+        ['Melbourne', 6],
+        ['Las Vegas', 6],
+        ['Orange', 4]
+      ]);
+
+      var options = {
+        title: 'Q4. Preferred Location - Top 4 Responses',
+        hAxis: {
+          title: 'Response'
+          },
+        vAxis: {
+          title: 'Number of Responses',
+          minValue: 0,
+          maxValue: 6
+        }
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+}
+    </script>
+    <link rel="stylesheet" href="mhcStyles.css">
+  </head>
+  <body>
+    <div class="container">
+    <div id="chart_div" style="width: 900px; height: 500px"></div>
+
+    <div id="prevNextButtons">
+      <input type="button" onclick="window.location.href = 'llsgCharts.q2-3.html';" value="Previous" />
+      <input type="button" onclick="window.location.href = 'llsgCharts.q5.html';" value="Next" />
+    </div>
+  </div>
+<script async src="https://www.jscache.com/wejs?wtype=rated&amp;uniq=936&amp;locationId=7318044&amp;lang=en_AU&amp;display_version=2"></script>
+  </body>
+</html>
+
