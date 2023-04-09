@@ -1,0 +1,351 @@
+openapi: 3.0.1
+info:
+  title: What Have I Done to my Home API
+  description: >-
+    A man's (or woman's) home is his (or her) castle.  We should all know what's
+    going in in our castle.  WHIDTMH allows every man and woman to record what
+    happens in, on or around the castle.  Record your purchases, your
+    renovations, your quotes, your bills, your repair jobs, your warranties ...
+    I mean, you could even record your parties!
+  version: '0.1.2'
+  termsOfService: 'http://Use.at.your.own/peril'
+  contact:
+    name: What Have I Done to my Home API
+    url: 'https://markhc.com'
+    email: mark@markhc.com
+  license:
+    name: 'License: None'
+    url: 'https://example.com'
+paths:
+  /home:
+    x-exegesis-controller: CurrentHome
+    get:
+      tags:
+        - Current Home
+      summary: Retrieve information about the home
+      description: >-
+        Access the basic information about the home for this installation of the
+        application.  We get pretty fundamental information at this level,
+        relating to the address and the purchase details.
+      operationId: getCurrentHome
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/home'
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Home not found
+                type: string
+                example: Not found
+    post:
+      tags:
+        - Current Home
+      summary: Create the default home
+      description: >-
+        Create the basic information about the home for this installation of the
+        application.  We create pretty fundamental information at this level,
+        relating to the address and the purchase details.
+      operationId: createCurrentHome
+      requestBody:
+        description: The home that is being created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/home'
+        required: true
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/home'
+  /home/particles:
+    x-exegesis-controller: CurrentHome
+    get:
+      tags:
+        - Current Home
+      summary: Retrieve the particles of the home
+      description: >-
+        The particles of the home are what the home is made up of.  I admit that this is not a great name for the rooms and buildings and yards and other things that make up the home.  I wanted to call them components, but the OpenAPI document has components already in it, so I chose another name - particles.
+      operationId: getAllParticles
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/particle'
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Particle not found
+                type: string
+                example: Not found
+    post:
+      tags:
+        - Current Home
+      summary: Create a particle in the home
+      description: >-
+        This is the way we create a new room, or a new garage, or a new yard, or a new stable in the current home.
+      operationId: createParticle
+      requestBody:
+        description: The home that is being created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/particle'
+        required: true
+
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/particle'
+    
+    put:
+      tags:
+        - Current Home
+      summary: Update a particle in the home
+      description: >-
+        Update a particle in the current home.
+      operationId: updateParticleWithId
+      requestBody:
+        description: The home that is being created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/particle'
+        required: true
+      responses:
+        '201':
+          description: Resource created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/particle'
+
+
+  /home/particles/{particleId}:
+    x-exegesis-controller: CurrentHome
+    get:
+      tags:
+        - Current Home
+      summary: Retrieve a given particle of the home
+      description: >-
+        Get a given particle of the current home, given its id.
+      operationId: getParticleWithId
+      parameters:
+        - in: path
+          name: particleId
+          schema:
+            type: integer
+          required: true
+          description: Numeric id of the particle to update
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/particle'
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Particle not found
+                type: string
+                example: Not found
+
+components:
+
+  parameters:
+    home:
+      name: home
+      in: query
+      description: "The complete home that is to be created"
+      schema:
+        $ref: '#/components/schemas/home'
+    particle:
+      name: particle
+      in: query
+      description: "The complete particle that is to be created"
+      schema:
+        $ref: '#/components/schemas/particle'
+
+
+
+  schemas:
+    home:
+      title: Successful response
+      type: object
+      properties:
+        homeId:
+          type: integer
+          description: >-
+            The unique identifier of the home that is the subject of this
+            application instance
+          format: int32
+          example: 989
+        homeAddress:
+          $ref: '#/components/schemas/physicalAddress'
+        homeDescription:
+          type: string
+          description: >-
+            A full enough description of the home, provided by the homeowner, to
+            demonstrate the pride with which the homeowner considers her (or
+            his) home.
+          example: >-
+            A beautiful example of Edwardian architecture set in one of the
+            prettiest streets of the suburb.  This home has 4 luxurious
+            bedrooms, two living areas, a huge kitchen, separate laundry and 3
+            bathrooms.  The immaculate grounds accommodate a kidney-shaped pool
+            in the rear, with abundant fruit trees and expansive lawns.
+        purchase:
+          $ref: '#/components/schemas/purchase'
+        particles:
+          type: array
+          items:
+            $ref: '#/components/schemas/particle'
+        numberOfStoreys:
+          type: integer
+          example: 2
+        dateOfBuild:
+          type: string
+          description: >-
+            The approximate date on which the house was first built (not
+            counting renovations)
+          example: '1971-01-01'
+        foundationType:
+          type: string
+          description: the type of foundations that underpin the structure
+          example: Concrete stumps
+        claddingType:
+          type: string
+          description: The material used to clad the exterior of the house
+          example: Weatherboard
+        roofType:
+          type: string
+          description: The material used to make the roof
+          example: Corrugated iron
+        mainDwellingFootprint:
+          $ref: '#/components/schemas/flatFootprint'
+        totalLandFootprint:
+          $ref: '#/components/schemas/flatFootprint'
+    physicalAddress:
+      title: Physical Address
+      type: object
+      properties:
+        addressNamePart:
+          type: string
+          description: >-
+            The part of the address that is descriptive of the name of the
+            property
+          example: The Gables
+        addressStreetPart:
+          type: string
+          description: The part of the address where we talk about the street
+          example: 'Unit 5, 24 Apollo Drive'
+        addressTownPart:
+          type: string
+          description: The part of the address that refers to the suburb or town
+          example: Olympus
+        addressStatePart:
+          type: string
+          description: >-
+            The part of the address that refers to the state, or territory, or
+            province, or county, or jangwat, etcetera
+          example: Oraclese
+        addressPostcodePart:
+          type: string
+          description: >-
+            I think we all know what a postcode is.  The Yanks, of course, will
+            call it something else.
+          example: 3103AWS
+        addressCountryPart:
+          type: string
+          description: The part of the address that specifies the country
+          example: Greece
+    purchase:
+      title: Purchase
+      type: object
+      properties:
+        purchaseDate:
+          type: string
+          description: The date on which the house was purchased
+          example: '2012-12-06'
+        purchaseAmount:
+          type: integer
+          description: 'The amount, in whole units, that the property was purchased for'
+          example: 777000
+        purchaseCurrency:
+          type: string
+          description: The local currency that was used in the purchase of the property
+          example: AUD
+    particle:
+      title: Particle
+      description: >-
+        Possibly a poor choice of name for the parts of a house.  I initially
+        thought it should be 'component', but that may have turned out to be a
+        bad choice rather than a poor choice.  Particle it is - the rooms and
+        structures and elements that make up the home
+      type: object
+      properties:
+        particleType:
+          $ref: '#/components/schemas/particleType'
+        particleName:
+          type: string
+          description: What people usually refer to the particle as
+          example: Rumpus Room
+        particleFootprint:
+          $ref: '#/components/schemas/particleFootprint'
+    particleFootprint:
+      title: Particle Footprint
+      type: object
+      description: 'How big the room, or the garage, or the stable is'
+      properties:
+        depth:
+          type: integer
+          example: 1800
+        width:
+          type: integer
+          example: 400
+        height:
+          type: integer
+          example: 260
+        units:
+          type: string
+          description: Which units are used to measure the size of the particle
+          example: centimetres
+    particleType:
+      title: Particle Type
+      type: string
+      enum:
+        - Room
+        - Garage
+        - Carport
+        - Cellar
+        - Attic
+        - Cubby House
+        - Granny Flat
+      default: Room
+    flatFootprint:
+      type: object
+      properties:
+        size:
+          type: integer
+          example: 550
+        units:
+          type: string
+          example: Square metres
