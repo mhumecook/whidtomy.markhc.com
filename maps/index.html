@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <link href="https://unpkg.com/maplibre-gl@1.14.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+      body { margin: 0; }
+      #map { height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <div id="map" />
+    <script src="https://unpkg.com/maplibre-gl@1.14.0/dist/maplibre-gl.js"></script>
+    <script>
+      const apiKey = "v1.public.eyJqdGkiOiIyMWUzMWEyZS1lMGFjLTRkNDUtYjI5ZC0xOTMwNTRkMDg5Y2QifR8klaqL-UeyzKQBzAA7zzfxCDl0GrymK4JZtbE8pPlSoEMBD6hv36Ju6FhbGvLZBnEBO0MtlY8Tfq_jTwcyCgvVJRe1KY-taBD5_FYtHq-qfunxS9rcUWfYWMtP_qmEZI_TkkthKbPKhGFc-7WE7qfHJbkheHJjRILoM9jD-qmNWZG2LK98F7smdhus3mCbxF_KfZBt7ac43ejjPhIN8LfdOFeVA5O5kQs7vykWliG8JrESgD-_sNxwmWtVBm2AbXGdo8IiTBkXa9Yxh-DZHoh6zQcEKQ-bGHXH9FSpDDwCtwj_WizO9_8YOZ8vThhDcUSxVp3_d9C7SiUGu59cSJk.ZTA2OTdiZTItNzgyYy00YWI5LWFmODQtZjdkYmJkODNkMmFh";
+      const region = "ap-southeast-2";
+      const mapName = "MHC.In.Porto.Alegre";
+      const styleUrl = `https://maps.geo.${region}.amazonaws.com/maps/v0/maps/${mapName}/style-descriptor?key=${apiKey}`;
+      const map = new maplibregl.Map({
+        container: "map",
+        style: styleUrl,
+        center: [-30.0384990, -51.2242071],
+        zoom: 11,
+      });
+      map.addControl(new maplibregl.NavigationControl(), "top-left");
+    </script>
+  </body>
+</html>
